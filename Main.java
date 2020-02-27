@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 
 /**
  *
- * @author Yash
+ * @author Yash Shashank Gupta
  */
 public class Main {
 
@@ -80,10 +80,16 @@ public class Main {
         input1 = input1.reverse(); 
         return input1.toString();
     }
+    //Staring of the programm
     public static void main(String[] args) {
         PriorityQueue<String> queue=new PriorityQueue<>();
         PriorityQueue<String> ans=new PriorityQueue<>();
+        //added only two value in queue because martix is of size 4*4
+        //so we will find answer in first 2 depth of the tree using bfs traversal
+        //and rest of the answer will be the mirror image of the answer founder in the first 2 depth
+        //this in term will help us to reduce the complexity
         queue.add("1000");queue.add("2000");
+        
         boolean flag=true;
         while(flag)
         {
@@ -96,7 +102,8 @@ public class Main {
                 index=str.indexOf("0");
             }     
             else
-            {       
+            {   
+                //add answer to ans queue if it not contain any "0"
                 ans.add(str);
                 ans.add(reverse(str));
                 continue;
@@ -104,6 +111,7 @@ public class Main {
             for(int i=1;i<5;i++)
             {
                 String temp=String.valueOf(i);
+                //check if the queen is not in same column and diagonal of another queen
                 if(!str.contains(temp) && check(str,index,i))
                 {
                     String newStr;
@@ -113,7 +121,7 @@ public class Main {
                         newStr=(str.substring(0, index)) + temp;
                     else
                         newStr=(str.substring(0, index)) + temp + (str.substring(index+1));
-                    
+                    //add new value to the queue
                     queue.add(newStr);                            
                 }                    
             }
